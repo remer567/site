@@ -1,6 +1,17 @@
 # Web form of authentication and registration
 
-Web application with Ajax can send data to and retrieve from a server using JSON format data to register and authorize users. The project uses an associative array to store new users (temporary solution), n which one user is added by default (e-mail: admin@site.com password: admin).
+Web application with Ajax can send data to and retrieve from a server using JSON format data to register and authorize users. The project uses an associative array to store new users (temporary solution), in which one user is added by default (e-mail: admin@site.com password: admin).
+
+Launch (UNIX/Linux/Mac OS X):
+  1. Install node.js
+  
+  2. Install node.js modules
+  npm install
+  
+  3. Start server
+  npm start
+  
+  4. Follow the link http://localhost:8000 in the browser
 
 Technologies used:
 
