@@ -1,6 +1,6 @@
 # Web form of authentication and registration
 
-Web application with Ajax can send data to and retrieve from a server using JSON format data to register and authorize users. The project uses an associative array to store new users (temporary solution).
+Web application with Ajax can send data to and retrieve from a server using JSON format data to register and authorize users. The project uses an associative array to store new users (temporary solution), n which one user is added by default (e-mail: admin@site.com password: admin).
 
 Technologies used:
 
