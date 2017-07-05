@@ -6,9 +6,11 @@ Launch (UNIX/Linux/Mac OS X):
   1. Install node.js
   
   2. Install node.js modules
+  
   npm install
   
   3. Start server
+  
   npm start
   
   4. Follow the link http://localhost:8000 in the browser
