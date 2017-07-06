@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const port = 8000;
 
 var app = express();
+
+// create application/json parser
 var jsonParser = bodyParser.json();
 
 // DataBase (Associative array - Key: login, Val: password)
@@ -14,97 +16,85 @@ passwords[LoginAdmin] = AdminPass;
 
 // Validation Email function
 function validationEmail(mail) {
-  var pattern = /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,6}$/i;
-
-  if(mail != ''){
-    if(mail.search(pattern) == 0){
-      return true;
-    }
-    else{
-      return false;
-    }
+  if(mail.length != 0 && /^[a-z0-9_-]+@[a-z0-9-]+\.[a-z]{2,6}$/i.test(mail)){
+    return true;
   }
-  else{
+  else
+  {
     return false;
   }
 }
 
 // Validation Pass function
 function validationPass(pass){
-  if(pass != ''){
-    if(pass.indexOf(" ") == -1){
-      return true;
-    }
-    else{
-      return false;
-    }
+  if(pass.length != 0 && /^\S*$/i.test(pass)){
+    return true;
   }
-  else{
+  else
+  {
     return false;
   }
 }
 
 app.use(express.static(__dirname + '/Frontend'));
 
-app.post("/login", jsonParser, function (request, response){
-    if(!request.body) return response.sendStatus(400);
-
+app.post("/login", jsonParser, function (req, res){
+    if(!req.body) return res.sendStatus(400);
+    console.log(req.body);
     // Validation Email and Password
-    if(validationEmail(request.body.inputEmailIn) &&
-      validationPass(request.body.inputPassIn))
+    if(validationEmail(req.body.inputEmailIn) &&
+      validationPass(req.body.inputPassIn))
     {
 
-      if (request.body.inputEmailIn in passwords &&
-        passwords[request.body.inputEmailIn] == request.body.inputPassIn){
-        response.json({
+      if (req.body.inputEmailIn in passwords &&
+        passwords[req.body.inputEmailIn] == req.body.inputPassIn){
+        res.json({
           status: 'AuthorizationSuccess'
         });
       }
       else {
-        response.json({
+        res.json({
           status: 'AuthorizationError'
         });
       }
     }
     else {
-      response.json({
+      res.json({
         status: 'AuthorizationError'
       });
     }
-
-
 });
 
-app.post("/signup", jsonParser, function (request, response){
-    if(!request.body) return response.sendStatus(400);
+app.post("/signup", jsonParser, function (req, res){
+    if(!req.body) return res.sendStatus(400);
 
     // Validation Email and Password
-    if(validationEmail(request.body.inputEmailUp) &&
-      validationPass(request.body.inputPassUp)) {
+    if(validationEmail(req.body.inputEmailUp) &&
+      validationPass(req.body.inputPassUp)) {
 
-      if (request.body.inputEmailUp in passwords){
-        response.json({
+      if (req.body.inputEmailUp in passwords){
+        res.json({
           status: 'RegistrationErrorUserAlreadyExists'
         });
       }
       else {
         // Add an entry to the table
-        passwords[request.body.inputEmailUp] = request.body.inputPassUp;
-        response.json({
+        passwords[req.body.inputEmailUp] = req.body.inputPassUp;
+        res.json({
           status: 'RegistrationSuccess'
         });
       }
     }
     else {
-      response.json({
+      res.json({
         status: 'RegistrationError'
       });
     }
 });
 
-app.get("/main", function(request, response){
+app.get("/main", function(req, res){
    var httpPage = '<h1>Authorization successful!</h1>';
-   response.send(httpPage);
+   res.send(httpPage);
 });
 
 app.listen(8000);

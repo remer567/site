@@ -24,7 +24,6 @@ Front-end:
   https://github.com/jquery/jquery
 
 Back-end:
-  
   Node.js v4.4.7
 
   frameworks/middlewares:
